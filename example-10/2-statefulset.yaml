@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: myapp
+  namespace: example-10
+spec:
+  serviceName: nginx
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: techwithprerit/k8s-hindi-app1:1.2-major
+          ports:
+            - name: http
+              containerPort: 8080
+          volumeMounts:
+            - name: data
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources:
+          requests:
+            storage: 5Gi

@@ -1,0 +1,11 @@
+
+# This is the yaml file for creating the cluster role 
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: viewer
+rules:
+- apiGroups: ["*"] # "" indicates the core API group
+  resources: ["deployments","configmaps","pods","secrets","services"]
+  verbs: ["get", "watch", "list"]

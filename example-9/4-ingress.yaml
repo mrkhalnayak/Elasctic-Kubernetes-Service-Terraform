@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp
+  namespace: example-9
+  annotations:
+    cert-manager.io/cluster-issuer: http-01-production
+spec:
+  ingressClassName: external-nginx
+  rules:
+    - host: www.cloudlabexperts.site
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myapp
+                port:
+                  number: 8080
+  tls:
+    - hosts:
+        - www.cloudlabexperts.site
+      secretName: www-cloudlabexperts-site

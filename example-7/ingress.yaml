@@ -1,0 +1,28 @@
+---
+# Supported annotations
+# https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.7/guide/ingress/annotations/
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp
+  namespace: example-7
+  annotations:
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-2:210034742139:certificate/aa06f00a-c6f1-431a-8432-62083b77b8db
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /health
+spec:
+  ingressClassName: alb
+  rules:
+    - host: dev.cloudlabexperts.site
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myapp
+                port:
+                  number: 8080
