@@ -60,7 +60,7 @@ On the Kuberenetes site we can't use built-in RBAC groups that start with system
 
 Next we'll create a manager IAM user and an additional IAM policy that would allow this user to assume the eks-admin IAM role, Finally we'll bind the IAM role with the kubernetes my-admin RBAC group using the EKS-API.
 
-5. Horizontal Pod Auto Scaler
+4. Horizontal Pod Auto Scaler
 
 In this we will see about the pod auto scaler and what required to work.
 Generally we need to monitor the CPU and memory usage to scale the application, for this it's importent that when we create deployment or statefull sets so we define the resource block.
@@ -134,7 +134,7 @@ here we given that the pods can take upto 128MB memory and cpu can be 100 milli 
 The image we have used in for the deployment is "vikash1997/loadcheckerimage:v1", now to test this load checking application we hit on this url "curl localhost:8080/api/cpu?index=44"
 
 
-6. Cluster-AutoScaler
+5. Cluster-AutoScaler
 
 The cluster-autoscaler is an external component, that we need to additionally install in our EKS cluster. To automatically scale up and down our cluster.
 We had created EKS node-group as regular AWS autoscaling groups with maximum, minimum , and desired size properties. 
