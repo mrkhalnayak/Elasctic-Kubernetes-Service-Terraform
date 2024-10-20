@@ -60,17 +60,17 @@ On the Kuberenetes site we can't use built-in RBAC groups that start with system
 
 Next we'll create a manager IAM user and an additional IAM policy that would allow this user to assume the eks-admin IAM role, Finally we'll bind the IAM role with the kubernetes my-admin RBAC group using the EKS-API.
 
-5. Horizontal Pod Auto Scaler
+4. Horizontal Pod Auto Scaler
 
 In this we will see about the pod auto scaler and what required to work.
-Generally we need to monitor the CPU and memory usage to scale the application, for this it's importent that when we create deployment or statefull sets so we define the resource block.
+Generally we need to monitor the CPU and memory usage to scale the application, for this it's important that when we create deployment or state full sets so we define the resource block.
 Because the HPA (Horizontal Pod AutoScaler) use the requests section to calculate CPU or memory usage of the pod, not the limits.
 SO, if we forgot update the resource then the "HPA" object wont work.
 
-We use GitOps Tools like (ArgoCD or FluxCD) to continiously compare the state of kubernetes objec with what we have define in the git repository.
-Now when we are using the HPA, so we should naver update the replica property in deployment and statefulsets, because then we'll get the race condition.
+We use GitOps Tools like (ArgoCD or FluxCD) to continiously compare the state of kubernetes object with what we have define in the git repository.
+Now when we are using the HPA, so we should naver update the replica property in deployment and stateful sets, because then we'll get the race condition.
 
-Example:- ArgoCD will keep applying 1 replica count and HPA (Horizontal Pod AutoScaler), will keep slcaing to 5. Also to target deployment for HPA we use the name property not the labels.
+Example:- ArgoCD will keep applying 1 replica count and HPA (Horizontal Pod AutoScaler), will keep scaling to 5. Also to target deployment for HPA we use the name property not the labels.
 
 Now if we want to use custome metrics, for example, the number of requests per second, so we need additional component.
 
@@ -86,7 +86,7 @@ Now we have created a sepret folder where we have created some object like names
 where in the deployment we have updated the resource request and limite both, and after that we have created the "HorizontalPodAutoscaler" object where we have define, 
 that when HorizontalPodAutoscaler can scale the pod.
 
-# Now when we have created the HPA we have setup the limition slcaing the pods from 1 to 5 in case if the memory and cpu utilization goes more then 70%.
+# Now when we have created the HPA we have setup the limitation scaling the pods from 1 to 5 in case if the memory and cpu utilization goes more then 70%.
 
 
 spec:
@@ -134,7 +134,7 @@ here we given that the pods can take upto 128MB memory and cpu can be 100 milli 
 The image we have used in for the deployment is "vikash1997/loadcheckerimage:v1", now to test this load checking application we hit on this url "curl localhost:8080/api/cpu?index=44"
 
 
-6. Cluster-AutoScaler
+5. Cluster-AutoScaler
 
 The cluster-autoscaler is an external component, that we need to additionally install in our EKS cluster. To automatically scale up and down our cluster.
 We had created EKS node-group as regular AWS autoscaling groups with maximum, minimum , and desired size properties. 
